@@ -1,0 +1,38 @@
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 敏感信息
+.env
+*.pem
+*.key
+*.p12
+
+# 数据与向量库（这些是运行时生成的，太大）
+data/
+chroma_db/
+*.db
+*.sqlite3
+
+# 模型权重（绝对禁止提交）
+*.safetensors
+*.bin
+*.ckpt
+*.pth
+outputs/
+runs/
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+
+# 日志文件
+*.log
+
+# IDE（如果想共享 .vscode 配置，可以删掉这行）
+.vscode/
+.DS_Store

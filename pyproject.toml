@@ -1,0 +1,25 @@
+[project]
+name = "trinity-llm"
+version = "0.1.0"
+description = "三位一体大模型全栈实践：RAG + SFT + Agent"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "langchain>=0.3.0",
+    "fastapi>=0.115.0",
+    "chromadb>=0.5.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]  # 基础规范、报错、导入排序
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

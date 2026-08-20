@@ -1,0 +1,25 @@
+# 核心 LLM 框架
+langchain==0.3.7
+langchain-core==0.3.63  # 锁定 0.3.x 兼容版本（配 langsmith 0.1.x）；0.3.86+ 需 langsmith>=0.3.45，与 langchain 0.3.7 的 langsmith<0.2.0 冲突
+langchain-community==0.3.5
+langchain-chroma==0.1.4
+langchain-openai==0.2.8  # 兼容 OpenAI 格式的 API（通义/DeepSeek 也用这个）
+langchain-huggingface==0.1.2  # 必须用 0.1.x 配套 langchain 0.3.x；1.x 会强制升级 langchain-core 1.x 造成依赖冲突
+
+# 向量库 & 嵌入
+chromadb==0.5.20
+sentence-transformers==3.0.1
+
+# Web 服务
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.18  # 文件上传支持
+
+# 数据处理
+pypdf==5.0.0
+docx2txt==0.8
+python-dotenv==1.0.0
+pyyaml==6.0.2
+
+# AI 辅助开发（可选，用于后续调用 LlamaFactory 微调接口）
+requests==2.32.3

@@ -1,0 +1,13 @@
+-r requirements.txt  # 继承上面的
+
+# 代码格式化 & 检查
+ruff==0.8.0
+mypy==1.13.0
+
+# 测试
+pytest==8.3.4
+pytest-asyncio==0.24.0  # 测试异步 FastAPI
+
+# Jupyter 探索
+jupyter==1.0.0
+ipykernel==6.29.5

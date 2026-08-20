@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: trinity-llm
+Version: 0.1.0
+Summary: 三位一体大模型全栈实践：RAG + SFT + Agent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: langchain>=0.3.0
+Requires-Dist: fastapi>=0.115.0
+Requires-Dist: chromadb>=0.5.0
