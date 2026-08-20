@@ -1,0 +1,35 @@
+name: CI
+
+# 触发条件：push 或 pull_request 到 main 分支时自动运行
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+      # 1. 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. 安装 Python
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # 3. 安装依赖
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # 4. 基础检查（未来可扩展 pytest 测试）
+      - name: Run basic check
+        run: python -c "print('CI 测试通过')"

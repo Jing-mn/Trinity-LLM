@@ -110,18 +110,24 @@ def query_with_sources(
     """
     # 支持动态调整检索数量：retriever 与 chain 内部共用同一实例，
     # 修改 search_kwargs 后，chain.invoke 内部的检索也会同步生效。
-    if top_k is not None:
+    # 查询结束后恢复原来的 k 值，避免影响后续未指定 top_k 的调用（防止状态泄漏）。
+    original_k = retriever.search_kwargs.get("k")
+    if top_k is not None and top_k > 0:
         retriever.search_kwargs["k"] = top_k
 
-    # 先用检索器取回相关文档，提取来源（用于下面的引用溯源展示）
-    docs = retriever.invoke(question)
-    sources: List[str] = []
-    for doc in docs:
-        src = doc.metadata.get("file_name") or doc.metadata.get("source", "未知来源")
-        if src not in sources:
-            sources.append(src)
+    try:
+        # 先用检索器取回相关文档，提取来源（用于下面的引用溯源展示）
+        docs = retriever.invoke(question)
+        sources: List[str] = []
+        for doc in docs:
+            src = doc.metadata.get("file_name") or doc.metadata.get("source", "未知来源")
+            if src not in sources:
+                sources.append(src)
 
-    # 再调用链生成回答
-    answer = chain.invoke(question)
+        # 再调用链生成回答
+        answer = chain.invoke(question)
 
-    return {"answer": answer, "sources": sources}
+        return {"answer": answer, "sources": sources}
+    finally:
+        if original_k is not None:
+            retriever.search_kwargs["k"] = original_k
